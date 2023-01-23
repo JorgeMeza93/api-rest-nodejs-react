@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
-const clientesSchema = new Schema({
+const clienteSchema = new Schema({
     nombre:{
         type: String,
         trim: true
@@ -25,5 +25,5 @@ const clientesSchema = new Schema({
         trim: true
     }
 })
-
-export default clientesSchema;
+const Cliente = mongoose.model("clientes", clienteSchema)
+export default Cliente;

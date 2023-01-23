@@ -6,6 +6,8 @@ const app = express();
 const port = 3000;
 
 conectarDB();
+//Habilitar la lectura de datos desde el request
+app.use( express.urlencoded({ extended: true }))
 app.use("/", router);
 
 //Listen
