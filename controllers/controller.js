@@ -16,7 +16,7 @@ const nuevoCliente = async (req, res, next) => {
       next();
    }
 }
-const mostrarCliente = async (req, res, next) => {
+const mostrarClientes = async (req, res, next) => {
    try {
       const clientes = await Cliente.find({});
       res.json(clientes)
@@ -25,5 +25,14 @@ const mostrarCliente = async (req, res, next) => {
       next();
    }
 }
+const mostrarCliente = async (req, res, next) => {
+   const { id } = req.params;
+   const cliente = await Cliente.findById(id);
+   if(!cliente){
+      res.json({mensaje: "Cliente no existente"})
+      next()
+   }
+   res.json(cliente)
+}
 
-export { saludar, nuevoCliente, mostrarCliente }
+export { saludar, nuevoCliente, mostrarClientes, mostrarCliente }
