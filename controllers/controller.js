@@ -26,13 +26,35 @@ const mostrarClientes = async (req, res, next) => {
    }
 }
 const mostrarCliente = async (req, res, next) => {
-   const { id } = req.params;
-   const cliente = await Cliente.findById(id);
-   if(!cliente){
-      res.json({mensaje: "Cliente no existente"})
-      next()
+   try {
+      const { id } = req.params;
+      const cliente = await Cliente.findById(id);
+      if(!cliente){
+         return res.json({mensaje: "Usuario no existente"})
+      }
+      res.json(cliente)
+   } catch (error) {
+      console.log(error);
    }
-   res.json(cliente)
+}
+const actualizarCliente = async (req, res) => {
+   try {
+      const { id } = req.params;
+      const cliente = await Cliente.findOneAndUpdate({ _id: id }, req.body, { new: true })
+      res.json({ cliente });
+   } catch (error) {
+      console.log(`Error al actualizar ${error}`);
+   }
+}
+const eliminarCliente = async(req, res, next) => {
+   try {
+      const { id } = req.params;
+      await Cliente.findOneAndDelete({ _id: id });
+      res.json({ mensaje: "El cliente se ha eliminado" });
+   } catch (error) {
+      console.log(error);
+      next();
+   }
 }
 
-export { saludar, nuevoCliente, mostrarClientes, mostrarCliente }
+export { saludar, nuevoCliente, mostrarClientes, mostrarCliente, actualizarCliente, eliminarCliente }
