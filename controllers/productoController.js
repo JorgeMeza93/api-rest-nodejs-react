@@ -35,8 +35,14 @@ const crearProducto = async (req, res) => {
         console.log(error);
     }
 }
-const obtenerProductos = (req, res) => {
-
+const obtenerProductos = async(req, res) => {
+    try {
+        const productos = await Producto.find({});
+        res.json(productos);
+    } catch (error) {
+        console.log(error);
+        next();
+    }
 }
 const subirArchivo = (req, res, next) => {
     upload(req, res, function(error){
@@ -46,5 +52,17 @@ const subirArchivo = (req, res, next) => {
         return next();
     })
 }
+const mostrarProducto = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const producto = await Producto.findById(id);
+        if(! producto){
+            return res.json({ mensaje: "El producto no existe" });
+        }
+        res.json(producto)
+    } catch (error) {
+        
+    }
+}
 
-export { crearProducto, obtenerProductos, subirArchivo }
+export { crearProducto, obtenerProductos, subirArchivo, mostrarProducto }
