@@ -64,5 +64,24 @@ const mostrarProducto = async (req, res) => {
         
     }
 }
-
-export { crearProducto, obtenerProductos, subirArchivo, mostrarProducto }
+const actualizarProducto = async (req, res) => {
+    try {
+        const { id } = req.params;
+        let productoAnterior = await Producto.findById(id);
+        let nuevoProducto = req.body;
+        if(req.file){
+            nuevoProducto.imagen = req.file.filename
+        }
+        else{
+            console.log("imagen ya existente");
+            nuevoProducto.imagen = productoAnterior.imagen;
+        }
+        let producto = await Producto.findOneAndUpdate({ _id: req.params.id }, nuevoProducto, {
+            new: true
+        });
+        res.json(producto)
+    } catch (error) {
+        console.log(error);
+    }
+}
+export { crearProducto, obtenerProductos, subirArchivo, mostrarProducto, actualizarProducto}
