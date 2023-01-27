@@ -64,7 +64,7 @@ const mostrarProducto = async (req, res) => {
         
     }
 }
-const actualizarProducto = async (req, res) => {
+const actualizarProducto = async (req, res, next) => {
     try {
         const { id } = req.params;
         let productoAnterior = await Producto.findById(id);
@@ -82,6 +82,17 @@ const actualizarProducto = async (req, res) => {
         res.json(producto)
     } catch (error) {
         console.log(error);
+        next();
     }
 }
-export { crearProducto, obtenerProductos, subirArchivo, mostrarProducto, actualizarProducto}
+const eliminarProducto = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        await Producto.findByIdAndDelete({ _id: id });
+        res.json({ mensaje: "El producto se ha eliminado" })
+    } catch (error) {
+        console.log(error);
+        next();
+    }
+}
+export { crearProducto, obtenerProductos, subirArchivo, mostrarProducto, actualizarProducto, eliminarProducto }
