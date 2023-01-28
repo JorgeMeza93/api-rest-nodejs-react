@@ -34,7 +34,9 @@ const mostrarPedido = async (req, res, next) => {
 }
 const actualizarPedido = async (req, res, next) => {
     try {
-        
+        const { id } = req.params;
+        let pedido = await Pedido.findOneAndUpdate({ _id: id }, req.body, { new: true}).populate("cliente").populate({ path: "articulo.producto", model: "productos" });
+        res.json(pedido);
     } catch (error) {
         console.log(error);
         next();
