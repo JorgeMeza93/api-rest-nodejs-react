@@ -42,4 +42,14 @@ const actualizarPedido = async (req, res, next) => {
         next();
     }
 }
-export { nuevoPedido, mostrarPedidos, mostrarPedido, actualizarPedido }
+const eliminarPedido = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        await Pedido.findOneAndDelete({ _id: id});
+        res.json({ mensaje: "El pedido se ha eliminado" })
+    } catch (error) {
+        console.log(error);
+        next();
+    }
+}
+export { nuevoPedido, mostrarPedidos, mostrarPedido, actualizarPedido, eliminarPedido }
