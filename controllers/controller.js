@@ -12,7 +12,7 @@ const nuevoCliente = async (req, res, next) => {
          mensaje: "Se ha agregado un nuevo registro de cliente"
       })
    } catch (error) {
-      console.log(error);
+      res.send(error)
       next();
    }
 }
