@@ -17,6 +17,9 @@ app.use("/", router);
 app.use("/", routerProductos);
 app.use("/", routerPedidos)
 
+//Carpeta publica de recursos
+app.use(express.static("uploads"));
+
 //Listen
 app.listen(port, () =>{
     console.log(`Servidor corriendo en el puerto ${port}`)

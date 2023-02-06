@@ -37,13 +37,15 @@ const mostrarCliente = async (req, res, next) => {
       console.log(error);
    }
 }
-const actualizarCliente = async (req, res) => {
+const actualizarCliente = async (req, res, next) => {
    try {
       const { id } = req.params;
       const cliente = await Cliente.findOneAndUpdate({ _id: id }, req.body, { new: true })
       res.json({ cliente });
    } catch (error) {
       console.log(`Error al actualizar ${error}`);
+      res.send(error)
+      next();
    }
 }
 const eliminarCliente = async(req, res, next) => {
