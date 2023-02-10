@@ -25,15 +25,16 @@ const upload = multer({
           return cb(null, false)
         }
       },
+      limits: { fieldSize: 10 * 1024 * 1024 }
     }).single("imagen");
 
 const crearProducto = async (req, res, next) => {
     const producto = new Producto(req.body);
-    console.log(req)
+    console.log(req.headers)
     
     try {
-        if(req.files[0].filename){
-            producto.imagen = req.files[0].filename
+        if(req.file.filename){
+            producto.imagen = req.file.filename
         }
         await producto.save();
         res.json({
