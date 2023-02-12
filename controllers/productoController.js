@@ -105,4 +105,14 @@ const eliminarProducto = async (req, res, next) => {
         next();
     }
 }
-export { crearProducto, obtenerProductos, subirArchivo, mostrarProducto, actualizarProducto, eliminarProducto }
+const buscarProducto = async(req, res, next) => {
+    try {
+        const { query } = req.params;
+        const producto = await Producto.find({ nombre: new RegExp(query, "i") });
+        res.json(producto);
+    } catch (error) {
+        console.log(error);
+        next();
+    }
+}
+export { crearProducto, obtenerProductos, subirArchivo, mostrarProducto, actualizarProducto, eliminarProducto, buscarProducto }
