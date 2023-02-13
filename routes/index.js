@@ -8,6 +8,6 @@ router.post("/clientes", nuevoCliente);
 router.get("/clientes", mostrarClientes);
 router.get("/cliente/:id", mostrarCliente);
 router.put("/cliente/:id", actualizarCliente);
-router.delete("/cliente/:id", eliminarCliente)
+router.delete("/cliente/:id", eliminarCliente);
 
 export default router;

@@ -4,6 +4,7 @@ import conectarDB from "./config/db.js";
 import routerProductos from "./routes/productosRoutes.js";
 import routerPedidos from "./routes/pedidosRoutes.js";
 import cors from "cors";
+import routerlogin from "./routes/loginRoutes.js"
 
 const app = express();
 const port = 3300;
@@ -15,7 +16,8 @@ app.use( express.urlencoded({ extended: true }))
 app.use(cors());
 app.use("/", router);
 app.use("/", routerProductos);
-app.use("/", routerPedidos)
+app.use("/", routerPedidos);
+app.use("/", routerlogin);
 
 //Carpeta publica de recursos
 app.use(express.static("uploads"));
