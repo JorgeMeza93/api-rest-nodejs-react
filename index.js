@@ -5,6 +5,7 @@ import routerProductos from "./routes/productosRoutes.js";
 import routerPedidos from "./routes/pedidosRoutes.js";
 import cors from "cors";
 import routerlogin from "./routes/loginRoutes.js"
+import auth from "./middlewares/auth.js"
 
 const app = express();
 const port = 3300;
