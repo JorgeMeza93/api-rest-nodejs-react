@@ -14,7 +14,21 @@ conectarDB();
 app.use(express.json());
 //Habilitar la lectura de datos desde el request
 app.use( express.urlencoded({ extended: true }))
-app.use(cors());
+//Definir un dominio para recibir las peticiones
+const whitelist = ["http://localhost:300"];
+const corsOptions = {
+    origin: (origin, callback) => {
+        //Revisar si la petición viene de un servidor que está en la whitelist
+        const existe = whitelist.some( dominio => dominio === origin);
+        if(existe){
+            callback(null, true);
+        }
+        else{
+            callback(new Error("No permitido por CORS"))
+        }
+    }
+}
+app.use(cors(corsOptions));
 app.use("/", router);
 app.use("/", routerProductos);
 app.use("/", routerPedidos);
