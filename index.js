@@ -6,16 +6,19 @@ import routerPedidos from "./routes/pedidosRoutes.js";
 import cors from "cors";
 import routerlogin from "./routes/loginRoutes.js"
 import auth from "./middlewares/auth.js"
+import dotenv from "dotenv"
 
 const app = express();
 const port = 3300;
+dotenv.config({ path: ".env" })
+
 
 conectarDB();
 app.use(express.json());
 //Habilitar la lectura de datos desde el request
 app.use( express.urlencoded({ extended: true }))
 //Definir un dominio para recibir las peticiones
-const whitelist = ["http://localhost:300"];
+const whitelist = ["http://localhost:3000"];
 const corsOptions = {
     origin: (origin, callback) => {
         //Revisar si la petición viene de un servidor que está en la whitelist
@@ -24,11 +27,11 @@ const corsOptions = {
             callback(null, true);
         }
         else{
-            callback(new Error("No permitido por CORS"))
+            callback(new Error("No permitido por CORS, verificar"))
         }
     }
 }
-app.use(cors(corsOptions));
+app.use(cors());
 app.use("/", router);
 app.use("/", routerProductos);
 app.use("/", routerPedidos);

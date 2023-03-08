@@ -4,7 +4,7 @@ import dotenv from "dotenv"
 dotenv.config({ path: ".env" })
 const conectarDB = async () => {
     try {
-        const db = await mongoose.connect(`mongodb+srv://root:${process.env.BD_Password}@cluster0.egezjtb.mongodb.net/?retryWrites=true&w=majority`, {
+        const db = await mongoose.connect(`mongodb+srv://${process.env.BD_USER}:${process.env.BD_Password}@cluster0.egezjtb.mongodb.net/?retryWrites=true&w=majority`, {
             useNewUrlParser: true,
             useUnifiedTopology: true
         })
